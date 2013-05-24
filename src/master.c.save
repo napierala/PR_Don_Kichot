@@ -1,0 +1,10 @@
+ENAME, NULL, PvmTaskDefault, "", SLAVENUM, tids);
+	
+	int info = pvm_barrier(GRP,SLAVENUM + 1);	
+
+	pvm_initsend(PvmDataDefault);
+	pvm_pkint(&mytid, 1, 1);
+	strcpy(hash,"aa7uckMQPpN46");
+	pvm_pkstr(hash);
+
+	pvm_bcast(GRP,MSG_M
