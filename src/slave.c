@@ -215,6 +215,18 @@ int czas_w_sekcji(){
 	return rand() % MAX_WAIT ;
 }
 
+int bezpieczny_czas_id(int czas_id){
+	//Czas id Musi byc wiekszy lub rowny najwiekszemu dotychczasowemu czas id
+	//Ostatnia pozycja w kolejce to najgorszy czas_id
+	rycerz max_rycerz = kolejka[RYCERZE-1];
+	//Jak to nie ja
+	if(max_rycerz.rycerz != mytid){
+		return (max_rycerz.czas_id + czas_w_sekcji());
+	}
+	else{
+		return (kolejka[RYCERZE-2].czas_id + czas_w_sekcji());
+	}
+}
 
 void sekcja_lokalna(){
 	//Czeka tyle ile mial
@@ -278,7 +290,7 @@ void update_my_czasid(){
 	gettimeofday(&current_time,NULL) ;
 
 	int new_czasid = current_time.tv_sec + czas_sekcji ;
-	czas_do_czekania = new_czasid ;
+	czas_do_czekania = bezpieczny_czas_id(new_czasid);
 
 	//SendMessagetoMasterTyp("CZASID:",czas_do_czekania);
 
